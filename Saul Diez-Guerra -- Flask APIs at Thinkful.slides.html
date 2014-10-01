@@ -11,6 +11,9 @@
 
 <title>Saul Diez-Guerra -- Flask APIs at Thinkful slides</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <!-- General and theme style sheets -->
 <link rel="stylesheet" href="reveal.js/css/reveal.css">
 <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
@@ -18,9 +21,16 @@
 <!-- For syntax highlighting -->
 <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
 
-<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
-document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+
 </script>
 
 <!--[if lt IE 9]>
@@ -1299,6 +1309,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1362,6 +1373,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1384,15 +1397,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1427,7 +1440,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1548,7 +1561,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1730,6 +1743,30 @@ div.output_prompt {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="github-com-diezguerra-flasknyc-apis-talk">github.com/diezguerra/flasknyc-apis-talk</h1>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>disclaimer</em></p>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>The starting point<ul>
 <li>Patel</li>
@@ -1738,7 +1775,12 @@ div.output_prompt {
 </ul>
 </div>
 </div>
-</div></section><section>
+</div></section>
+    </section><section>
+    <section>
+    
+                <div style="width: 100%; text-align: center"><img src="files/patel1.png"></div>
+                </section><section>
     
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -1758,6 +1800,21 @@ div.output_prompt {
     </section><section>
     <section>
     
+                <div style="width: 100%; text-align: center"><img src="files/trevor1.png"></div>
+                </section>
+    </section><section>
+    <section>
+    
+                <div style="width: 100%; text-align: center"><img src="files/trevor2.png"></div>
+                </section>
+    </section><section>
+    <section>
+    
+                <div style="width: 100%; text-align: center"><img src="files/trevor3.png"></div>
+                </section>
+    </section><section>
+    <section>
+    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1780,7 +1837,6 @@ div.output_prompt {
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Mentor-facing API. Why?<ul>
-<li>Business: Improving mentor satisfaction</li>
 <li>Tech: SOA: You either share databases, events or expose APIs</li>
 </ul>
 </li>
@@ -1796,7 +1852,6 @@ div.output_prompt {
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Mentor-facing API. Why?<ul>
-<li>Business: Improving mentor satisfaction</li>
 <li>Tech: SOA: You either share databases, events or expose APIs<ul>
 <li>Our approach to SOA: Not microservices, but functional pieces of the business isolated from the rest.</li>
 </ul>
@@ -1815,33 +1870,9 @@ div.output_prompt {
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Mentor-facing API. Why?<ul>
-<li>Business: Improving mentor satisfaction</li>
 <li>Tech: SOA: You either share databases, events or expose APIs<ul>
 <li>Our approach to SOA: Not microservices, but functional pieces of the business isolated from the rest.</li>
-<li>If student project app has to deal with user acquisition stages, you&#39;re in trouble.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Mentor-facing API. Why?<ul>
-<li>Business: Improving mentor satisfaction</li>
-<li>Tech: SOA: You either share databases, events or expose APIs<ul>
-<li>Our approach to SOA: Not microservices, but functional pieces of the business isolated from the rest.</li>
-<li>If student project app has to deal with user acquisition stages, you&#39;re in trouble.<ul>
-<li>HINT: we were.</li>
-</ul>
-</li>
+<li>If the student project code has to deal with user acquisition stages, you&#39;re in trouble.</li>
 </ul>
 </li>
 </ul>
@@ -1861,12 +1892,12 @@ div.output_prompt {
 <ul>
 <li>Libraries we considered<ul>
 <li><a href="http://python-eve.org">Python-Eve</a><ul>
-<li>The most complete (auth, hateoas...)</li>
-<li>but also the one with the most convention (and mongo!)</li>
+<li>The most complete... (auth, hateoas...)</li>
+<li>...but also the one with the most convention (and mongo!)</li>
 </ul>
 </li>
 <li><a href="http://www.flaskapi.org/">Flask-API</a><ul>
-<li>Promising, but inactive </li>
+<li>Promising, but inactive</li>
 </ul>
 </li>
 <li><a href="https://flask-restless.readthedocs.org/">Flask-Restless</a><ul>
@@ -1874,7 +1905,7 @@ div.output_prompt {
 </ul>
 </li>
 <li><a href="http://flask-restful.readthedocs.org">Flask-RESTful</a><ul>
-<li>The one we ended up choosing</li>
+<li>The one we ended up choosing. Why?</li>
 </ul>
 </li>
 </ul>
@@ -1939,9 +1970,7 @@ div.output_prompt {
 </ul>
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
+</div></section><section>
     
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -1975,9 +2004,7 @@ div.output_prompt {
 </ul>
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
+</div></section><section>
     
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -2000,9 +2027,7 @@ div.output_prompt {
 </ul>
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
+</div></section><section>
     
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
